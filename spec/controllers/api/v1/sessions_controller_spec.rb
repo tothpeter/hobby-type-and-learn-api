@@ -42,4 +42,14 @@ RSpec.describe Api::V1::SessionsController, type: :controller do
       end      
     end
   end
+
+  describe "DELETE #destroy" do
+    it "return 204" do
+      @user = FactoryGirl.create :user
+
+      delete :destroy, id: @user.auth_token_for_web
+
+      should respond_with 204
+    end
+  end
 end
