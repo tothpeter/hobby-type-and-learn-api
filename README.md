@@ -1,6 +1,8 @@
 # README
 
 ## Ruby version
+2.2.2
+
 ## System dependencies
 ## Configuration
 ## Database creation
