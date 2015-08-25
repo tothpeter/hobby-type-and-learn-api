@@ -28,4 +28,5 @@ group :test do
   gem 'shoulda-matchers'
 end
 
+gem 'rack-cors', :require => 'rack/cors'
 gem 'devise'
