@@ -30,3 +30,4 @@ end
 
 gem 'rack-cors', :require => 'rack/cors'
 gem 'devise'
+gem 'active_model_serializers', :git => 'git://github.com/rails-api/active_model_serializers.git', :ref => 'af280ab'
