@@ -9,9 +9,13 @@ class Api::V1::SessionsController < ApplicationController
       user.generate_authentication_token!
       user.save
 
+      serializer = UserSerializer.new user
+      adapter = ActiveModel::Serializer::Adapter::JsonApi.new serializer
+      
       data = {
         token: user.auth_token_for_web,
         email: user.email,
+        user: adapter.serializable_hash
       }
       
       render json: data, status: 201

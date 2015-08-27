@@ -13,9 +13,10 @@ RSpec.describe Api::V1::SessionsController, type: :controller do
         post :create, { user: credentials }
       end
 
-      it "returns the auth token" do
+      it "returns the auth token and the correspondng user (in json api format)" do
         @user.reload
         expect(json_response[:token]).to eql @user.auth_token_for_web
+        expect(json_response[:user][:data][:id]).to eql @user.id.to_s
       end
 
       it { should respond_with 201 }
