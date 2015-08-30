@@ -10,7 +10,7 @@ class Api::V1::SessionsController < ApplicationController
       user.save
 
       serializer = UserSerializer.new user
-      adapter = ActiveModel::Serializer::Adapter::JsonApi.new serializer
+      adapter = ActiveModel::Serializer::Adapter::JsonApi.new serializer, include: ['labels']
       
       data = {
         token: user.auth_token_for_web,
