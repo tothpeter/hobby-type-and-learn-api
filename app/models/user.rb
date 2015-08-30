@@ -2,6 +2,8 @@ class User < ActiveRecord::Base
 
   before_create :generate_authentication_token!
 
+  has_many :labels
+
   validates :auth_token_for_web, uniqueness: true
   
   # Include default devise modules. Others available are:

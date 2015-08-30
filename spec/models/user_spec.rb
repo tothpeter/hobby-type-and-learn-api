@@ -5,6 +5,8 @@ RSpec.describe User, type: :model do
 
   subject { @user }
 
+  it { should have_many :labels }
+
   it { should be_valid }
 
   it { should validate_uniqueness_of(:email) }
