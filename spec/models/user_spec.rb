@@ -6,6 +6,7 @@ RSpec.describe User, type: :model do
   subject { @user }
 
   it { should have_many :labels }
+  it { should have_many :cards }
 
   it { should be_valid }
 

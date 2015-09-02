@@ -5,6 +5,7 @@ RSpec.describe Label, type: :model do
   subject { @label }
 
   it { should belong_to :user }
+  it { should have_many :cards }
 
   it { should validate_presence_of :title }
 end

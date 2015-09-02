@@ -11,10 +11,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150829133053) do
+ActiveRecord::Schema.define(version: 20150902080819) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "cards", force: :cascade do |t|
+    t.integer  "user_id"
+    t.text     "side_a",                      default: ""
+    t.text     "side_b",                      default: ""
+    t.integer  "proficiency_level", limit: 2, default: 0
+    t.datetime "created_at",                               null: false
+    t.datetime "updated_at",                               null: false
+  end
+
+  add_index "cards", ["proficiency_level"], name: "index_cards_on_proficiency_level", using: :btree
+  add_index "cards", ["user_id"], name: "index_cards_on_user_id", using: :btree
 
   create_table "labels", force: :cascade do |t|
     t.integer  "user_id"
@@ -25,6 +37,15 @@ ActiveRecord::Schema.define(version: 20150829133053) do
   end
 
   add_index "labels", ["user_id"], name: "index_labels_on_user_id", using: :btree
+
+  create_table "labels_cards", force: :cascade do |t|
+    t.integer "label_id"
+    t.integer "card_id"
+  end
+
+  add_index "labels_cards", ["card_id"], name: "index_labels_cards_on_card_id", using: :btree
+  add_index "labels_cards", ["label_id", "card_id"], name: "by_label_and_card", unique: true, using: :btree
+  add_index "labels_cards", ["label_id"], name: "index_labels_cards_on_label_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -46,5 +67,8 @@ ActiveRecord::Schema.define(version: 20150829133053) do
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
+  add_foreign_key "cards", "users"
   add_foreign_key "labels", "users"
+  add_foreign_key "labels_cards", "cards"
+  add_foreign_key "labels_cards", "labels"
 end

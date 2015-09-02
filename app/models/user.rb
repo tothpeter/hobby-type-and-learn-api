@@ -3,6 +3,7 @@ class User < ActiveRecord::Base
   before_create :generate_authentication_token!
 
   has_many :labels
+  has_many :cards
 
   validates :auth_token_for_web, uniqueness: true
   
