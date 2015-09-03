@@ -10,4 +10,29 @@ class Api::V1::CardsController < ApplicationController
     end
     render json: cards, serializer: PaginatedSerializer
   end
+
+  def create
+    card = current_user.cards.build card_params
+
+    if card.save
+      save_relationship card
+      render json: card, status: 201
+    else
+      render json: { errors: card.errors }, status: 422
+    end
+  end
+
+  protected
+
+  def card_params
+    params[:data].require(:attributes).permit(:side_a, :side_b, :proficiency_level)
+  end
+
+  def save_relationship card
+    if params[:data][:relationships] && params[:data][:relationships][:labels]
+      params[:data][:relationships][:labels][:data].each do |label_relationship|
+        card.label_cards.create label_id: label_relationship[:id]
+      end
+    end
+  end
 end
