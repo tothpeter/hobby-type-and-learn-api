@@ -47,7 +47,11 @@ class Api::V1::CardsController < ApplicationController
 
   def update_relationship card
     if params[:data][:relationships] && params[:data][:relationships][:labels]
-      card.label_ids = params[:data][:relationships][:labels][:data].collect {|label| label[:id].to_i}
+      if params[:data][:relationships][:labels][:data]
+        card.label_ids = params[:data][:relationships][:labels][:data].collect {|label| label[:id].to_i}
+      else
+        card.label_ids = []
+      end
     end
   end
 end
