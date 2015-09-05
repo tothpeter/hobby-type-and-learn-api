@@ -22,6 +22,17 @@ class Api::V1::CardsController < ApplicationController
     end
   end
 
+  def update
+    card = current_user.cards.find params[:id]
+
+    if card.update_attributes card_params
+      update_relationship card
+      render json: card, status: 200
+    else
+      render json: { errors: card.errors }, status: 422
+    end
+  end
+
   protected
 
   def card_params
@@ -29,6 +40,12 @@ class Api::V1::CardsController < ApplicationController
   end
 
   def save_relationship card
+    if params[:data][:relationships] && params[:data][:relationships][:labels]
+      card.label_ids = params[:data][:relationships][:labels][:data].collect {|label| label[:id].to_i}
+    end
+  end
+
+  def update_relationship card
     if params[:data][:relationships] && params[:data][:relationships][:labels]
       card.label_ids = params[:data][:relationships][:labels][:data].collect {|label| label[:id].to_i}
     end

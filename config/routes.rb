@@ -8,7 +8,7 @@ Rails.application.routes.draw do
       resources :sessions, :only => [:create, :destroy]
 
       resources :labels, only: [:create, :update, :destroy]
-      resources :cards, only: [:index, :create]
+      resources :cards, only: [:index, :create, :update]
     end
   end
 end
