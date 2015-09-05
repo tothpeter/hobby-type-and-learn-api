@@ -2,8 +2,8 @@ class User < ActiveRecord::Base
 
   before_create :generate_authentication_token!
 
-  has_many :labels
-  has_many :cards
+  has_many :labels, dependent: :destroy
+  has_many :cards, dependent: :destroy
 
   validates :auth_token_for_web, uniqueness: true
   
