@@ -40,7 +40,7 @@ class Api::V1::CardsController < ApplicationController
   end
 
   def save_relationship card
-    if params[:data][:relationships] && params[:data][:relationships][:labels]
+    if params[:data][:relationships] && params[:data][:relationships][:labels] && params[:data][:relationships][:labels][:data]
       card.label_ids = params[:data][:relationships][:labels][:data].collect {|label| label[:id].to_i}
     end
   end
