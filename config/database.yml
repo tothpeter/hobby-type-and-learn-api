@@ -81,5 +81,5 @@ test:
 production:
   <<: *default
   database: type_and_learn_api_production
-  username: type_and_learn_api
+  username: <%= ENV['TYPE_AND_LEARN_API_DATABASE_USER'] %>
   password: <%= ENV['TYPE_AND_LEARN_API_DATABASE_PASSWORD'] %>
