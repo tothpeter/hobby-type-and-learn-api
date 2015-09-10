@@ -7,6 +7,7 @@
 # server 'example.com', user: 'deploy', roles: %w{app web}, other_property: :other_value
 # server 'db.example.com', user: 'deploy', roles: %w{db}
 
+server ENV['TAL_APP_PRODUCTION_HOST'], user: ENV['TAL_APP_PRODUCTION_USER'], port: ENV['TAL_APP_PRODUCTION_PORT'], roles: %w{web app db}, primary: true
 
 
 # role-based syntax

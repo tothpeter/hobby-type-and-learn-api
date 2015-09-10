@@ -24,6 +24,7 @@ gem 'puma'
 
 group :development do
   gem 'capistrano'
+  gem 'capistrano-bundler', require: false
 end
 
 group :test do
