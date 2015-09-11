@@ -22,6 +22,10 @@ gem 'puma'
 # To use debugger
 # gem 'ruby-debug19', :require => 'ruby-debug'
 
+group :production do
+  gem 'airbrake'
+end
+
 group :development do
   gem 'capistrano'
   gem 'capistrano-bundler', require: false
