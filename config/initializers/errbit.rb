@@ -3,4 +3,5 @@ Airbrake.configure do |config|
   config.host    = ENV['ERRBIT_HOST']
   config.port    = 443
   config.secure  = config.port == 443
+  config.ignore_only = []
 end
