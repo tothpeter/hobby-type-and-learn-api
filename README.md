@@ -27,3 +27,17 @@ bundle exec rspec
 ```
 bundle exec cap production deploy
 ```
+
+### Airbarke config
+
+If you want to use Airbrake in production then you should create a file: shared/config/initializers/airbrake.rb
+
+```
+Airbrake.configure do |config|
+  config.api_key = ''
+  config.host    = ''
+  config.port    = 443
+  config.secure  = config.port == 443
+  config.ignore_only = []
+end
+```
