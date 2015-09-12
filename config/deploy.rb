@@ -24,7 +24,7 @@ set :repo_url, 'git@github.com:tothpeter/type_and_learn_api.git'
 
 # Default value for :linked_files is []
 # set :linked_files, fetch(:linked_files, []).push('config/database.yml', 'config/secrets.yml')
-set :linked_files, fetch(:linked_files, []).push('.rbenv-vars')
+set :linked_files, fetch(:linked_files, []).push('.rbenv-vars', 'config/initializers/airbrake.rb')
 
 # Default value for linked_dirs is []
 set :linked_dirs, fetch(:linked_dirs, []).push('log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'vendor/bundle', 'public/system')
