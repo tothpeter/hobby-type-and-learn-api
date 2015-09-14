@@ -85,4 +85,16 @@ RSpec.describe Api::V1::LabelsController, type: :controller do
       end
     end
   end
+
+  describe "DELETE #destroy" do
+    it "deletes a label" do
+      label = FactoryGirl.create :label
+      api_authorization_header label.user.auth_token_for_web 
+      
+      delete :destroy, { id: label.id }
+      
+      expect(Label.where(id: label.id).count).to eq 0
+      should respond_with 204
+    end
+  end
 end

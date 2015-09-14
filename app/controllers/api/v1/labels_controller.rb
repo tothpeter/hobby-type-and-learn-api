@@ -21,6 +21,12 @@ class Api::V1::LabelsController < ApplicationController
     end
   end
 
+  def destroy
+    label = current_user.labels.find params[:id]
+    label.destroy
+    head 204
+  end
+
   protected
 
   def label_params
