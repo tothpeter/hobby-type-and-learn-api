@@ -4,7 +4,8 @@ workers 2
 # Min and Max threads per worker
 threads 1, 6
 
-app_dir = File.expand_path("../..", __FILE__)
+app_dir = "/var/www/type_and_learn_api/shared"
+# app_dir = File.expand_path("../..", __FILE__)
 
 # Default to production
 rails_env = ENV['RAILS_ENV'] || "production"
