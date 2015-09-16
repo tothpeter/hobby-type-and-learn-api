@@ -33,6 +33,12 @@ class Api::V1::CardsController < ApplicationController
     end
   end
 
+  def destroy
+    card = current_user.cards.find params[:id]
+    card.destroy
+    head 204
+  end
+
   protected
 
   def card_params

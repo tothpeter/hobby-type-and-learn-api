@@ -57,6 +57,18 @@ RSpec.describe Api::V1::CardsController, type: :controller do
     end
   end
 
+  describe "DELETE #destroy" do
+    it "deletes a card" do
+      card = FactoryGirl.create :card
+      api_authorization_header card.user.auth_token_for_web 
+      
+      delete :destroy, { id: card.id }
+      
+      expect(Card.where(id: card.id).count).to eq 0
+      should respond_with 204
+    end
+  end
+
   def simple_card_params user
     temp_card = FactoryGirl.create :card, user: user
 
