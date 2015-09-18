@@ -22,6 +22,8 @@ pidfile "#{app_dir}/tmp/pids/puma.pid"
 state_path "#{app_dir}/tmp/pids/puma.state"
 activate_control_app
 
+preload_app!
+
 on_worker_boot do
   require "active_record"
   ActiveRecord::Base.connection.disconnect! rescue ActiveRecord::ConnectionNotEstablished
