@@ -2,9 +2,15 @@
 
 This is the API backend of my home project called Type and Learn.
 
-The frontend will come soon here in github and in production as well.
+The frontend is an Ember CLI application: https://github.com/tothpeter/type_and_learn_client
 
-The full project will be deployed to here: http://type-and-learn.kalina.tech
+I'm running this project on my private Ubuntu server in my living room.
+
+There is a third app, that is in charge to bootstrap the whole project in production: https://github.com/tothpeter/type_and_learn_web
+
+The final app is live here: http://type-and-learn.kalina.tech
+
+A broader description is on its way...
 
 ## Ruby version
 2.2.3
@@ -28,11 +34,12 @@ bundle exec rspec
 bundle exec cap production deploy
 ```
 
-### Airbarke config
+### Airbrake config
 
-If you want to use Airbrake in production then you should create a file: shared/config/initializers/airbrake.rb
+In production Airbrake requires an initializer like this:
 
 ```
+# file: shared/config/initializers/airbrake.rb
 Airbrake.configure do |config|
   config.api_key = ''
   config.host    = ''
