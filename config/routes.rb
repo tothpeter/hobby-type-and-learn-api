@@ -11,6 +11,8 @@ Rails.application.routes.draw do
 
       resources :labels, only: [:create, :update, :destroy]
       resources :cards, only: [:index, :create, :update, :destroy]
+      
+      resources :label_cards, only: [:create]
     end
   end
 end
