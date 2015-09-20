@@ -34,7 +34,7 @@ describe Authenticable do
     end
 
     it "returns error" do
-      expect(authentication.authenticate_with_token[:json][:errors]).to eql "Not authenticated"
+      expect(authentication.authenticate_with_token[:json][:errors][:title]).to eql "Not authenticated"
     end
 
     it "returns unauthorized status" do
