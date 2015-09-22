@@ -10,7 +10,9 @@ Rails.application.routes.draw do
       get :current_user, to: 'users#logged_in_user'
 
       resources :labels, only: [:create, :update, :destroy]
-      resources :cards, only: [:index, :create, :update, :destroy]
+      resources :cards, only: [:index, :create, :update, :destroy] do
+        post :import, on: :collection
+      end
       
       resources :label_cards, only: [:create]
     end

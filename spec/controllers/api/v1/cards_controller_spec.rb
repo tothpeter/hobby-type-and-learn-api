@@ -91,4 +91,17 @@ RSpec.describe Api::V1::CardsController, type: :controller do
     adapter.serializable_hash.merge({user_id: user.id})
   end
 
+
+  describe "POST #import" do
+    it "uploads a CSV file and creates cards from it" do
+      current_user = FactoryGirl.create :user
+      api_authorization_header current_user.auth_token_for_web
+
+      post :import, file: fixture_file_upload('/files/cards.csv', 'text/csv')
+
+      expect(current_user.cards.count).to eq 4
+      should respond_with 201
+    end
+  end
+
 end

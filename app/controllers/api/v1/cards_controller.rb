@@ -39,6 +39,11 @@ class Api::V1::CardsController < ApplicationController
     head 204
   end
 
+  def import
+    Card.import params[:file], current_user
+    render json: {}, status: 201
+  end
+
   protected
 
   def card_params
