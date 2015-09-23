@@ -1,12 +1,18 @@
 class Api::V1::CardsController < ApplicationController
   before_action :authenticate_with_token
 
+  has_scope :sort do |controller, scope, value|
+    if ["side_a", "side_b", "proficiency_level"].include?(value) && ["desc", "asc"].include?(controller.params[:sort_order])
+      scope.order("#{value} #{controller.params[:sort_order]}")
+    end
+  end
+
   def index
     if params[:label_id]
       label = Label.find params[:label_id]
-      cards = label.cards.page(params[:page]).per(3)
+      cards = apply_scopes(label.cards).page(params[:page]).per(3)
     else
-      cards = current_user.cards.page(params[:page]).per(3)
+      cards = apply_scopes(current_user.cards).page(params[:page]).per(3)
     end
     render json: cards, serializer: PaginatedSerializer
   end

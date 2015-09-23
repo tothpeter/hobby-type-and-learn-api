@@ -43,3 +43,4 @@ gem 'active_model_serializers', :git => 'git://github.com/rails-api/active_model
 gem 'kaminari'
 gem 'roo', '~> 2.1.0'
 gem 'roo-xls'
+gem 'has_scope'
