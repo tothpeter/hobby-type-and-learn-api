@@ -2,7 +2,7 @@ class Api::V1::CardsController < ApplicationController
   before_action :authenticate_with_token
 
   has_scope :sort do |controller, scope, value|
-    if ["side_a", "side_b", "proficiency_level"].include?(value) && ["desc", "asc"].include?(controller.params[:sort_order])
+    if ["side_a", "side_b", "proficiency_level", "created_at"].include?(value) && ["desc", "asc"].include?(controller.params[:sort_order])
       scope.order("#{value} #{controller.params[:sort_order]}")
     end
   end
