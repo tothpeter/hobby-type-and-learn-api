@@ -92,7 +92,7 @@ RSpec.describe Api::V1::CardsController, type: :controller do
   end
 
   describe "POST #preview_import" do
-    it "uploads a CSV file and creates cards from it" do
+    it "returns a list of cards in JSON from uploaded CSV file" do
       current_user = FactoryGirl.create :user
       api_authorization_header current_user.auth_token_for_web
 
@@ -106,7 +106,7 @@ RSpec.describe Api::V1::CardsController, type: :controller do
 
 
   describe "POST #import" do
-    it "uploads a CSV file and creates cards from it" do
+    it "imports cards from JSON post" do
       current_user = FactoryGirl.create :user
       api_authorization_header current_user.auth_token_for_web
 

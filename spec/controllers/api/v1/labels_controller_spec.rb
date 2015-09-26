@@ -46,7 +46,7 @@ RSpec.describe Api::V1::LabelsController, type: :controller do
 
   describe "PUT/PATCH #update" do
     context "when is successfully updated" do
-      it "renders the json representation for the updated label" do
+      it "updates a label and renders it in JSON" do
         user = FactoryGirl.create :user
         label = FactoryGirl.create :label, user: user
         
