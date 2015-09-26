@@ -29,6 +29,7 @@ end
 group :development do
   gem 'capistrano'
   gem 'capistrano-bundler', require: false
+  gem 'capistrano-sidekiq'
 end
 
 group :test do

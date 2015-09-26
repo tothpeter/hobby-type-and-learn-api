@@ -57,6 +57,9 @@ GEM
     capistrano-bundler (1.1.4)
       capistrano (~> 3.1)
       sshkit (~> 1.2)
+    capistrano-sidekiq (0.5.3)
+      capistrano
+      sidekiq
     celluloid (0.17.1.2)
       bundler
       celluloid-essentials
@@ -245,6 +248,7 @@ DEPENDENCIES
   airbrake
   capistrano
   capistrano-bundler
+  capistrano-sidekiq
   devise
   factory_girl_rails
   has_scope
