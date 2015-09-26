@@ -11,7 +11,10 @@ Rails.application.routes.draw do
 
       resources :labels, only: [:create, :update, :destroy]
       resources :cards, only: [:index, :create, :update, :destroy] do
-        post :import, on: :collection
+        collection do
+          post :import
+          post :preview_import
+        end
       end
       
       resources :label_cards, only: [:create]

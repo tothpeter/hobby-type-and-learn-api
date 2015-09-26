@@ -45,8 +45,13 @@ class Api::V1::CardsController < ApplicationController
     head 204
   end
 
+  def preview_import
+    cards = Card.preview_import params[:file]
+    render json: {cards: cards}
+  end
+
   def import
-    Card.import params[:file], current_user
+    CardsImportWorker.perform_async params[:cards], current_user.id
     render json: {}, status: 201
   end
 

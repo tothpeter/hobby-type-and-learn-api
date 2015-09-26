@@ -91,15 +91,28 @@ RSpec.describe Api::V1::CardsController, type: :controller do
     adapter.serializable_hash.merge({user_id: user.id})
   end
 
+  describe "POST #preview_import" do
+    it "uploads a CSV file and creates cards from it" do
+      current_user = FactoryGirl.create :user
+      api_authorization_header current_user.auth_token_for_web
+
+      post :preview_import, file: fixture_file_upload('/files/cards_import/without_header.csv', 'text/csv')
+
+      expect(json_response[:cards].length).to eq 4
+      expect(json_response[:cards][0][:sideA]).to eq "asd a 1"
+      should respond_with 200
+    end
+  end
+
 
   describe "POST #import" do
     it "uploads a CSV file and creates cards from it" do
       current_user = FactoryGirl.create :user
       api_authorization_header current_user.auth_token_for_web
 
-      post :import, file: fixture_file_upload('/files/cards.csv', 'text/csv')
+      post :import, {"cards":[{"sideA":"aa","sideB":"bb","proficiencyLevel":"1"},{"sideA":"aa 2","sideB":"bb2","proficiencyLevel":"4"}]}
 
-      expect(current_user.cards.count).to eq 4
+      expect(current_user.cards.count).to eq 2
       should respond_with 201
     end
   end

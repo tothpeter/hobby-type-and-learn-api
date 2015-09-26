@@ -7,37 +7,39 @@ class Card < ActiveRecord::Base
 
   validates_presence_of :side_a, :side_b
 
-  def self.import file, user
+  def self.preview_import file
     spreadsheet = open_spreadsheet(file)
 
+    cards = []
+    headers = spreadsheet.row 1
     accessible_attributes = ["side_a", "side_b", "proficiency_level"]
 
-    header = spreadsheet.row 1
-
-    if accessible_attributes.include? header[0]
-      import_with_headers spreadsheet, header, accessible_attributes, user
+    if accessible_attributes.include? headers[0]
+      (2..spreadsheet.last_row).each do |i|
+        row = Hash[[headers, spreadsheet.row(i)].transpose]
+        cards << { sideA: row["side_a"], sideB: row["side_b"], proficiencyLevel: row["proficiency_level"] }
+      end
     else
-      import_without_headers spreadsheet, user
+      (1..spreadsheet.last_row).each do |i|
+        cards << { sideA: spreadsheet.row(i)[0], sideB: spreadsheet.row(i)[1], proficiencyLevel: spreadsheet.row(i)[2] }
+      end
+    end
+
+    cards
+  end
+
+  def self.import cards, user_id
+    cards.each do |card_data|
+      card = Card.new
+      card.side_a = card_data["side_a"]
+      card.side_b = card_data["side_b"]
+      card.proficiency_level = card_data["proficiency_level"]
+      card.user_id = user_id
+      card.save!
     end
   end
 
   private
-
-  def self.import_with_headers spreadsheet, header, accessible_attributes, user
-    (2..spreadsheet.last_row).each do |i|
-      row = Hash[[header, spreadsheet.row(i)].transpose]
-      card = user.cards.build
-      card.attributes = row.to_hash.slice *accessible_attributes
-      card.save!
-    end
-  end
-
-  def self.import_without_headers spreadsheet, user
-    (1..spreadsheet.last_row).each do |i|
-      card = user.cards.build side_a: spreadsheet.row(i)[0], side_b: spreadsheet.row(i)[1], proficiency_level: spreadsheet.row(i)[2]
-      card.save!
-    end
-  end
 
   def self.open_spreadsheet file
     case File.extname file.original_filename

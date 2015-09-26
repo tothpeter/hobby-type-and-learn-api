@@ -12,41 +12,41 @@ RSpec.describe Card, type: :model do
   it { should validate_presence_of :side_a }
   it { should validate_presence_of :side_b }
 
-  describe "#import" do
+  describe ".preview_import" do
     it "imports .xls without any header specified" do
-      file = fixture_file_upload('/files/without_header.xls', 'application/vnd.ms-excel')
+      file = fixture_file_upload('/files/cards_import/without_header.xls', 'application/vnd.ms-excel')
 
-      Card.import file, @card.user
+      cards = Card.preview_import file
 
-      expect(@card.user.cards.count).to eq 2
-      expect(@card.user.cards.first.side_a).to eq "aa"
+      expect(cards.count).to eq 2
+      expect(cards.first[:sideA]).to eq "aa"
     end
 
     it "imports .xlsx without any header specified" do
-      file = fixture_file_upload('/files/without_header.xlsx', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+      file = fixture_file_upload('/files/cards_import/without_header.xlsx', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
 
-      Card.import file, @card.user
+      cards = Card.preview_import file
 
-      expect(@card.user.cards.count).to eq 2
-      expect(@card.user.cards.first.side_a).to eq "aa"
+      expect(cards.count).to eq 2
+      expect(cards.first[:sideA]).to eq "aa"
     end
 
     it "imports .xls with header specified" do
-      file = fixture_file_upload('/files/with_header.xls', 'application/vnd.ms-excel')
+      file = fixture_file_upload('/files/cards_import/with_header.xls', 'application/vnd.ms-excel')
 
-      Card.import file, @card.user
+      cards = Card.preview_import file
 
-      expect(@card.user.cards.count).to eq 2
-      expect(@card.user.cards.first.side_a).to eq "aa"
+      expect(cards.count).to eq 2
+      expect(cards.first[:sideA]).to eq "aa"
     end
 
     it "imports .xlsx with header specified" do
-      file = fixture_file_upload('/files/with_header.xlsx', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+      file = fixture_file_upload('/files/cards_import/with_header.xlsx', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
 
-      Card.import file, @card.user
+      cards = Card.preview_import file
 
-      expect(@card.user.cards.count).to eq 2
-      expect(@card.user.cards.first.side_a).to eq "aa"
+      expect(cards.count).to eq 2
+      expect(cards.first[:sideA]).to eq "aa"
     end
   end
 end
