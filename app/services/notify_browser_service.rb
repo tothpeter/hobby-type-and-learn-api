@@ -1,6 +1,6 @@
 class NotifyBrowserService
   def self.notify event_type, event_data
-    client = UNIXSocket.open("/tmp/websocekts_puma.sock")
+    client = UNIXSocket.open("/tmp/websockets_unix.sock")
 
     message = {
       type: "event",
