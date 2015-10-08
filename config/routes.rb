@@ -5,7 +5,11 @@ Rails.application.routes.draw do
 
   namespace :api, defaults: { format: :json }, path: '/' do
     scope module: :v1, constraints: ApiConstraints.new(version: 1, default: true) do
-      resources :sessions, :only => [:create, :destroy]
+      resources :sessions, :only => [:create, :destroy] do
+        collection do
+          post :login_chrome_plugin
+        end
+      end
       
       get :current_user, to: 'users#logged_in_user'
 

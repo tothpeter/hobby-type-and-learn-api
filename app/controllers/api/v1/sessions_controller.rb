@@ -24,6 +24,30 @@ class Api::V1::SessionsController < ApplicationController
     end
   end
 
+  def login_chrome_plugin
+    user_password = params[:user][:password]
+    user_email = params[:user][:email]
+    
+    user = user_email.present? && User.find_by(email: user_email)
+
+    if user.present? && user.valid_password?(user_password)
+      user.generate_authentication_token_for_chrome
+      user.save
+
+      serializer = UserSerializer.new user
+      adapter = ActiveModel::Serializer::Adapter::JsonApi.new serializer, include: ['labels']
+      
+      data = {
+        token: user.auth_token_for_chrome,
+        user: adapter.serializable_hash
+      }
+      
+      render json: data, status: 201
+    else
+      render json: { errors: "Invalid email or password" }, status: 401
+    end
+  end
+
   def destroy
     user = User.find_by(auth_token_for_web: params[:id])
     user.generate_authentication_token!

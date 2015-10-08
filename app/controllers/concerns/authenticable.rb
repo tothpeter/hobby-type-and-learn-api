@@ -4,7 +4,7 @@ module Authenticable
   # Devise methods overwrites
   def current_user
     authenticate_with_http_token do |token, options|
-      @current_user ||= User.find_by(auth_token_for_web: token)
+      @current_user ||= User.where('auth_token_for_web=? or auth_token_for_chrome=?', token, token).first
     end
   end
 

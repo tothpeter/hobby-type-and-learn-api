@@ -19,4 +19,12 @@ class User < ActiveRecord::Base
 
     self.auth_token_for_web = token
   end
+
+  def generate_authentication_token_for_chrome
+    begin
+      token = Devise.friendly_token
+    end while User.exists?(auth_token_for_chrome: token)
+
+    self.auth_token_for_chrome = token
+  end
 end
