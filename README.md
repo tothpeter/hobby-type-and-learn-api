@@ -46,5 +46,6 @@ Airbrake.configure do |config|
   config.port    = 443
   config.secure  = config.port == 443
   config.ignore_only = []
+  config.ignore_user_agent  << /bot/
 end
 ```
