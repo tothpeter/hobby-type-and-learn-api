@@ -1,14 +1,8 @@
 # Type and Learn API
 
-This is the API backend of my home project called Type and Learn.
+[The main project page](https://github.com/tothpeter/type_and_learn)
 
-The frontend is an Ember CLI application: https://github.com/tothpeter/type_and_learn_client
-
-I'm running this project on my private Ubuntu server in my living room.
-
-There is a third app, that is in charge to bootstrap the whole project in production: https://github.com/tothpeter/type_and_learn_web
-
-The final app is live here: http://type-and-learn.kalina.tech
+This is the API of my home project called Type and Learn.
 
 A broader description is on its way...
 
